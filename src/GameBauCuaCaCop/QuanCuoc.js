@@ -1,19 +1,61 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { animated, useSpring } from "react-spring";
 
 export default function QuanCuoc(props) {
+  const dispatch = useDispatch();
+
+  const [propsUseSpringInCrease, setInCrease] = useSpring(() => {
+    return {
+        to: { scale: 1.25 },
+        from: { scale: 1 },
+        reset:true
+    }
+})
+
+const [propsUseSpringDeCrease, setDeCrease] = useSpring(() => {
+    return {
+        to: { scale: 1.25 },
+        from: { scale: 1 },
+        reset: true
+    }
+})
+
   const {quanCuoc} = props;
+
   return (
     <div className="mt-3">
       <img src={quanCuoc.hinhAnh} alt="" style={{ width: "250px" }} />
 
       <div className="bg-success mt-2 pb-2 text-center" style={{borderRadius: "10px", width: 250}}>
-        <button className="btn btn-primary mr-3">
+        <animated.button style={{ transform: propsUseSpringInCrease.scale.to(scale => `scale(${scale})`) }} 
+        onClick={() => {
+          setInCrease({ scale: 1 })
+          setInCrease({ scale: 1.25 })
+
+          dispatch({
+            type: "DAT_CUOC_BAU_CUA",
+            quanCuoc,
+            tangGiam: true
+          })
+        }} className="btn btn-primary mr-3">
             <i className="fa fa-plus"></i>
-        </button>
+        </animated.button>
+
         <span className="mt-2" style={{ color: "yellow", fontSize: 25 }}>
           {quanCuoc.diemCuoc}
         </span>
-        <button className="btn btn-danger ml-3">-</button>
+        <animated.button style={{ transform: propsUseSpringDeCrease.scale.to(scale => `scale(${scale})`) }}  
+        onClick={() => {
+          setDeCrease({ scale: 1 })
+          setDeCrease({ scale: 1.25 })
+
+          dispatch({
+            type: "DAT_CUOC_BAU_CUA",
+            quanCuoc,
+            tangGiam: false
+          })
+        }} className="btn btn-danger ml-3">-</animated.button>
       </div>
     </div>
   );

@@ -11,8 +11,6 @@
   min-height: 1500px;
 }
 
-
-
 .scene {
   width: 50px;
   height: 50px;
@@ -27,15 +25,13 @@
   transform-style: preserve-3d;
   transition: transform infinite;
   transform: translateZ(-25px) ;
-
 }
-
 
 .cube__face {
   position: absolute;
   width: 50px;
   height: 50px;
-  border: 2px solid black;
+  border: 2px solid yellow;
   line-height: 40px;
   font-size: 5px;
   font-weight: bold;
